@@ -36,19 +36,33 @@ EventDispatcher::EventDispatcher(EventDispatcher &&eventDispatcher)
 /* -------------------------------------------------------------
 	EVENT LISTENER IN & OUT
 ------------------------------------------------------------- */
-void EventDispatcher::addEventListener(int type, void(*listener)(std::shared_ptr<Event>))
+void EventDispatcher::addEventListener(LPIEventListener eventListener)
 {
 	UniqueWriteLock uk(mtx);
 
-	auto &set = eventSetMap[type];
-	set.insert(listener);
+    if (eventListener == nullptr) return;
+
+    Listeners->pNext = eventListener;
+    Listeners = eventListener;
+
 }
-void EventDispatcher::removeEventListener(int type, void(*listener)(std::shared_ptr<Event>))
+void EventDispatcher::removeEventListener(LPIEventListener eventListener)
 {
 	UniqueWriteLock uk(mtx);
 
-	if (eventSetMap.count(type) > 0 && eventSetMap[type].count(listener) > 0)
-		eventSetMap[type].erase(listener);
+    IEventListener *It = Index_Start;
+    IEventListener *tmpObject;
+
+    while (It->pNext != nullptr)
+    {
+        if (It->pNext == eventListener)
+        {
+            tmpObject = It;
+            It->pNext = tmpObject->pNext;
+
+            delete tmpObject;
+        }
+    }
 }
 
 /* -------------------------------------------------------------
@@ -58,13 +72,15 @@ auto EventDispatcher::dispatchEvent(shared_ptr<Event> event) -> bool
 {
 	UniqueReadLock uk(mtx);
 
-	int type = event->getType();
-	if (eventSetMap.count(type) == 0 || eventSetMap[type].empty() == true)
-		return false;
+    IEventListener *It = Index_Start;
 
-	auto &eventSet = eventSetMap[type];
-	for (auto it = eventSet.begin(); it != eventSet.end(); it++)
-		thread(*it, event).detach();
+    while (It->pNext != nullptr)
+    {
+        if (It->TypeOf == event->getType)
+        {
+            thread(&(IEventListener::Dispatch), It, event).detach();
+        }
+    }
 
 	return true;
 }

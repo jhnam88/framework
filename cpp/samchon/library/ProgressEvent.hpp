@@ -18,7 +18,7 @@ namespace samchon
 			: public Event
 		{
 		public:
-			enum TYPES : int
+			enum TYPES : char
 			{
 				PROGRESS = 11
 			};

@@ -38,11 +38,11 @@ namespace samchon
 		class SAMCHON_FRAMEWORK_API Event
 		{
 		public:
-			enum TYPES : int
+			enum TYPES : char
 			{
-				ACTIVATE = 1,
-				COMPLETE = 2,
-				REMOVED = -1
+				ACTIVATE = 0x01,
+				COMPLETE = 0x02,
+				REMOVED = 0xFF
 			};
 
 		protected:

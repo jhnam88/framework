@@ -309,9 +309,6 @@
     <ClInclude Include="..\samchon\library\Event.hpp">
       <Filter>Header Files\library\event</Filter>
     </ClInclude>
-    <ClInclude Include="..\samchon\library\EventDispatcher.hpp">
-      <Filter>Header Files\library\event</Filter>
-    </ClInclude>
     <ClInclude Include="..\samchon\library\CriticalAllocator.hpp">
       <Filter>Header Files\library\critical section</Filter>
     </ClInclude>
@@ -671,6 +668,12 @@
     </ClInclude>
     <ClInclude Include="..\samchon\protocol\slave\SlaveSystemp.hpp">
       <Filter>Header Files\protocol\slave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samchon\library\EventDispatcher.hpp">
+      <Filter>Header Files\library\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\samchon\library\EventListener.hpp">
+      <Filter>Header Files\library\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 #include <map>
 #include <samchon/Set.hpp>
 
+#include "..\..\SamchonFramework\EventListener.hpp"
 #include <samchon/library/RWMutex.hpp>
 #include <samchon/library/Semaphore.hpp>
 
@@ -12,6 +13,7 @@ namespace samchon
 {
 	namespace library
 	{
+
 		class Event;
 		class ErrorEvent;
 		class ProgressEvent;
@@ -46,7 +48,8 @@ namespace samchon
 			/**
 			 * @brief A container storing listeners
 			 */
-			std::map<int, std::set<void(*)(std::shared_ptr<Event>)>> eventSetMap; //EVENT
+            LPIEventListener Index_Start;
+            LPIEventListener Listeners;
 
 			/**
 			 * @brief A rw_mutex for concurrency
@@ -105,7 +108,7 @@ namespace samchon
 			 * @param type The type of event.
 			 * @param listener The listener function processes the event.
 			 */
-			void addEventListener(int, void(*listener)(std::shared_ptr<Event>));
+			void addEventListener(LPIEventListener);
 			
 			/**
 			 * @brief Remove a registered event listener
@@ -117,7 +120,7 @@ namespace samchon
 			 * @param type The type of event.
 			 * @param listener The listener function to remove.
 			 */
-			void removeEventListener(int, void(*listener)(std::shared_ptr<Event>));
+			void removeEventListener(LPIEventListener);
 			
 		protected:
 			/* ----------------------------------------------------------
@@ -134,7 +137,7 @@ namespace samchon
 			 * @param event The Event object that is dispatched into the event flow.
 			 * @return Whether there's some listener to listen the event
 			 */
-			auto dispatchEvent(std::shared_ptr<Event>) -> bool;
+			auto dispatchEvent(shared_ptr<Event>) -> bool;
 
 			/**
 			 * @brief Convenient method of dispatching a progress event
