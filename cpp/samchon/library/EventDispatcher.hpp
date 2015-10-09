@@ -5,7 +5,7 @@
 #include <map>
 #include <samchon/Set.hpp>
 
-#include "..\..\SamchonFramework\EventListener.hpp"
+#include <samchon/library/EventListener.hpp>
 #include <samchon/library/RWMutex.hpp>
 #include <samchon/library/Semaphore.hpp>
 
@@ -121,6 +121,7 @@ namespace samchon
 			 * @param listener The listener function to remove.
 			 */
 			void removeEventListener(LPIEventListener);
+            void removeEventListenerAsUUID(UUID_LISTENER);
 			
 		protected:
 			/* ----------------------------------------------------------

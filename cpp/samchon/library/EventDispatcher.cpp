@@ -65,6 +65,25 @@ void EventDispatcher::removeEventListener(LPIEventListener eventListener)
     }
 }
 
+void EventDispatcher::removeEventListenerAsUUID(UUID_LISTENER uuidListener)
+{
+    UniqueWriteLock uk(mtx);
+
+    IEventListener *It = Index_Start;
+    IEventListener *tmpObject;
+
+    while (It->pNext != nullptr)
+    {
+        if (It->pNext->GetUUID() == uuidListener)
+        {
+            tmpObject = It;
+            It->pNext = tmpObject->pNext;
+
+            delete tmpObject;
+        }
+    }
+}
+
 /* -------------------------------------------------------------
 	SEND EVENT
 ------------------------------------------------------------- */
