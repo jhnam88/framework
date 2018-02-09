@@ -1,4 +1,6 @@
 # Samchon Framework
+
+[![Join the chat at https://gitter.im/samchon/framework](https://badges.gitter.im/samchon/framework.svg)](https://gitter.im/samchon/framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![NPM](https://nodei.co/npm/samchon.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/samchon)
 
 GitHub Repository: https://github.com/samchon/framework
